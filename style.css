@@ -21,7 +21,11 @@ h2{
 	margin-bottom: 10px;
 }
 
-#countriesChart, #sentimentChart, #tweets{
+section{
+	display: block;
+}
+
+#countriesChart, #sentimentChart, #translatedTweets{
 	width: 80%;
 	height: 400px;
 	margin: 35px auto;
@@ -35,7 +39,6 @@ h2{
 
 #translatedTweets{
 	overflow: auto;
-	height: 350px;
 }
 
 .translatedTweet{
