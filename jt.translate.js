@@ -2,6 +2,12 @@ var jt = jt || {};
 
 jt.translate = (function($){
 	
+	var translatedTweets;
+	
+	var init = function(){
+		translatedTweets = $("#translatedTweets");
+	};
+	
 	var translateTweet = function(tweet, callback){
 		
 		var encodedText = encodeURIComponent(tweet.message),
@@ -9,13 +15,19 @@ jt.translate = (function($){
 		
 		$.getJSON(endpoint, function(data){
 			if(data.responseStatus === 200){
-			    console.log("TRANSLATED!", tweet.message, data.responseData.translatedText);
+				displayTweet(tweet, data.responseData.translatedText);
 				tweet.message = data.responseData.translatedText;
 				callback(tweet);
 			}
 			
 		});
 	};
+	
+	var displayTweet = function(tweet, translatedMessage){
+		translatedTweets.prepend('<div class="translatedTweet clearfix"><img src="' + tweet.user.image + '" width="48 height="48"/><div><span>' + tweet.message + '</span><span class="english">' + translatedMessage + '</span></div></div>');
+	};
+	
+	$(init);
 	
 	return{
 		translateTweet: translateTweet

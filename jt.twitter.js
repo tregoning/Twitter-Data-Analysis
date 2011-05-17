@@ -2,9 +2,10 @@ var jt = jt || {};
 
 jt.twitter = (function($){
 	
-	tweets = [];
-	tweetsByCountry = [];
-	tweetsBySentiment = [];
+	var tweets = [],
+		tweetsByCountry = [],
+		tweetsBySentiment = [],
+		processedTweetIDs = [];
 	
 	var init = function(){
 		fetchPublicTimeline();
@@ -13,7 +14,7 @@ jt.twitter = (function($){
 	
 	var fetchPublicTimeline = function(){
 		
-		//$.getJSON("http://api.twitter.com/1/statuses/public_timeline.json?callback=?",function(data){
+		$.getJSON("http://api.twitter.com/1/statuses/public_timeline.json?callback=?",function(data){
 			
 			$.each(data, function(){
 
@@ -40,7 +41,7 @@ jt.twitter = (function($){
 					tweets.push(tweet);
 				}	
 			});
-		//});
+		});
 	};
 	
 	var tweetRequestManager = function(){
@@ -55,11 +56,17 @@ jt.twitter = (function($){
 	};
 	
 	var processTweet = function(tweet){
-		if(tweet.user.lang !== "en" || jt.location.englishSpeakingCountry(tweet.location.country)){
-			processForCountryTweetCounter(tweet);
-			jt.sentiment.performSentimentAnalysis(tweet);
-		}else{
-			jt.translate.translateTweet(tweet, jt.twitter.processTweetCore);
+		
+		if ($.inArray(tweet.id, processedTweetIDs) === -1){
+			
+			processedTweetIDs.push(tweet.id);
+			
+			if(tweet.user.lang !== "en" || jt.location.englishSpeakingCountry(tweet.location.country)){
+				processForCountryTweetCounter(tweet);
+				jt.sentiment.performSentimentAnalysis(tweet);
+			}else{
+				jt.translate.translateTweet(tweet, jt.twitter.processTweetCore);
+			}
 		}
 	};
 	

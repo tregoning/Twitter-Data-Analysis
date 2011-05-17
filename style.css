@@ -1,4 +1,67 @@
-#countriesChart{
-	width: 80%;
-	height: 500px;
+body{
+	width: 90%;
+	margin: 0 auto;
+	border: 3px solid black;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	-moz-border-radius: 12px;
+  	-webkit-border-radius: 12px;
+    border-radius: 12px;
 }
+
+h1, h2{
+	font-family: 'Geo', arial, serif; 
+	text-align: center;
+}
+
+h1{
+	font-size: 3em;
+}
+
+h2{
+	font-size: 2em;
+	margin-bottom: 10px;
+}
+
+#countriesChart, #sentimentChart, #tweets{
+	width: 80%;
+	height: 400px;
+	margin-bottom: 45px;
+	margin: 0 auto;
+}
+
+#translatedTweets{
+	overflow: auto;
+	height: 350px;
+}
+
+.translatedTweet{
+	margin-bottom: 15px;
+	border: 1px solid silver;
+	padding: 8px;
+}
+
+.translatedTweet img{
+	margin-right: 20px;
+	vertical-align: middle;
+	float: left;
+}
+
+.translatedTweet div{
+	float: left;
+	width: 90%;
+}
+
+.translatedTweet span{
+	display: block;
+}
+
+.translatedTweet .english{
+	color: #444;
+}
+
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+

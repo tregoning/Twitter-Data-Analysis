@@ -2,10 +2,9 @@ var jt = jt || {};
 
 jt.sentiment = (function($){
 	
-	var apiKey = "c9b5e3c736314696c97e9ff862689ecf52b0cbd3";
-	
-	tweetsWithSentiment = [];
-	processedTweetIDs = [];
+	var apiKey = "c9b5e3c736314696c97e9ff862689ecf52b0cbd3",
+		tweetsWithSentiment = [],
+		processedTweetIDs = [];
 	
 	var init = function(){
 		sentimentTweetsManager();
@@ -14,8 +13,8 @@ jt.sentiment = (function($){
 	var performSentimentAnalysis = function(tweet){
 		
 		var url = "http://twitter.com/" + tweet.user.username + "/status/" + tweet.id,
-				endpoint = "http://access.alchemyapi.com/calls/url/URLGetTextSentiment?apikey=" + apiKey + "&outputMode=json&url=" + encodeURIComponent(url) + "&jsonp=?";
-			
+			endpoint = "http://access.alchemyapi.com/calls/url/URLGetTextSentiment?apikey=" + apiKey + "&outputMode=json&url=" + encodeURIComponent(url) + "&jsonp=?";
+					
 			$.getJSON(endpoint, function(data){
 				
 				 if(data.status === "OK"){
@@ -37,8 +36,10 @@ jt.sentiment = (function($){
 	};
 	
 	var processTweet = function(tweet){
-		if ($.inArray(tweet.id, processedTweetIDs)=== -1){
+		if ($.inArray(tweet.id, processedTweetIDs) === -1){
+			
 			processedTweetIDs.push(tweet.id);
+			
 			tweetsWithSentiment.push(tweet);
 			jt.sentimentChart.addNewTweetEntry(tweet);
 		}
