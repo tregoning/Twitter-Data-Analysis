@@ -13,7 +13,7 @@ jt.sentimentChart = (function($){
 	            
 	        },
 	        title: {
-	            text: 'Happinest Chart'
+	            text: 'Sentiment Analysis'
 	        },
 	        xAxis: {
 	            type: 'datetime',
@@ -39,8 +39,6 @@ jt.sentimentChart = (function($){
 		
 			tooltip: {
 			     formatter: function() {
-					   console.log('this', this);
-					
 			           return '<b>'+ this.y +'</b> ' + '<span>' + this.point.name  + '</span>';
 			     }
 			}

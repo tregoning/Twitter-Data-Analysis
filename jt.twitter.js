@@ -22,6 +22,10 @@ jt.twitter = (function($){
 				
 				if(location){
 					
+					if(location.precision==='geo'){
+						jt.map.insertMarker(location.coordinates[0], location.coordinates[1], this.text);
+					}
+					
 					var tweet = {
 						location: location,
 						message: this.text,
@@ -110,6 +114,7 @@ jt.twitter = (function($){
 				precision: 'geo',
 				country: data.place.country
 			}
+			
 		}else if(data.place){
 			location = {
 				country: data.place.country,
@@ -121,6 +126,7 @@ jt.twitter = (function($){
 				url: data.place.url,
 				precision: 'place'
 			}
+			
 		}else if(data.user.location){
 			
 			//validating that location freetext field is actually a location

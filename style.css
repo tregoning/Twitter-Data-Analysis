@@ -27,6 +27,12 @@ h2{
 	margin: 35px auto;
 }
 
+#map{
+	margin: 35px auto;
+	height: 400px;
+	width: 600px;
+}
+
 #translatedTweets{
 	overflow: auto;
 	height: 350px;
