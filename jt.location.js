@@ -293,8 +293,23 @@ jt.location = (function($){
 		return location;
 	};
 	
+	var englishSpeakingCountry = function(country){
+		var englishCountry = [
+			"UNITED STATES",
+			"UNITED KINGDOM",
+			"AUSTRALIA",
+			"NEW ZEALAND",
+			"CANADA",
+			"SOUTH AFRICA"
+		];
+		
+		return $.inArray(country, englishCountry) !== -1;
+
+	}
+	
 	return{
-		extractLocationFromText: extractLocationFromText
+		extractLocationFromText: extractLocationFromText,
+		englishSpeakingCountry: englishSpeakingCountry
 	}
 	
 }(jQuery));

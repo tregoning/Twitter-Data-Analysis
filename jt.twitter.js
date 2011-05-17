@@ -5,7 +5,6 @@ jt.twitter = (function($){
 	tweets = [];
 	tweetsByCountry = [];
 	tweetsBySentiment = [];
-	//translate = http://www.google.com/uds/Gtranslate?key=notsupplied&q=hola%20a%20todos&context=22&langpair=|en&v=1.0&callback=dude;
 	
 	var init = function(){
 		fetchPublicTimeline();
@@ -14,7 +13,7 @@ jt.twitter = (function($){
 	
 	var fetchPublicTimeline = function(){
 		
-		$.getJSON("http://api.twitter.com/1/statuses/public_timeline.json?callback=?",function(data){
+		//$.getJSON("http://api.twitter.com/1/statuses/public_timeline.json?callback=?",function(data){
 			
 			$.each(data, function(){
 
@@ -41,7 +40,7 @@ jt.twitter = (function($){
 					tweets.push(tweet);
 				}	
 			});
-		});
+		//});
 	};
 	
 	var tweetRequestManager = function(){
@@ -56,6 +55,15 @@ jt.twitter = (function($){
 	};
 	
 	var processTweet = function(tweet){
+		if(tweet.user.lang !== "en" || jt.location.englishSpeakingCountry(tweet.location.country)){
+			processForCountryTweetCounter(tweet);
+			jt.sentiment.performSentimentAnalysis(tweet);
+		}else{
+			jt.translate.translateTweet(tweet, jt.twitter.processTweetCore);
+		}
+	};
+	
+	var processTweetCore = function(tweet){
 		processForCountryTweetCounter(tweet);
 		jt.sentiment.performSentimentAnalysis(tweet);
 	};
@@ -109,7 +117,7 @@ jt.twitter = (function($){
 		}else if(data.user.location){
 			
 			//validating that location freetext field is actually a location
-			var parsedLocation = jt.location.extractLocationFromText(data.user.location)
+			var parsedLocation = jt.location.extractLocationFromText(data.user.location);
 			
 			if (parsedLocation){
 				location = {
@@ -128,5 +136,9 @@ jt.twitter = (function($){
 	};
 	
 	$(init);
+	
+	return{
+		processTweetCore: processTweetCore
+	}
 		
 }(jQuery));

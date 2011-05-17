@@ -5,6 +5,7 @@ jt.sentiment = (function($){
 	var apiKey = "c9b5e3c736314696c97e9ff862689ecf52b0cbd3";
 	
 	tweetsWithSentiment = [];
+	processedTweetIDs = [];
 	
 	var init = function(){
 		sentimentTweetsManager();
@@ -36,8 +37,11 @@ jt.sentiment = (function($){
 	};
 	
 	var processTweet = function(tweet){
-		tweetsWithSentiment.push(tweet);
-		jt.sentimentChart.addNewTweetEntry(tweet);
+		if ($.inArray(tweet.id, processedTweetIDs)=== -1){
+			processedTweetIDs.push(tweet.id);
+			tweetsWithSentiment.push(tweet);
+			jt.sentimentChart.addNewTweetEntry(tweet);
+		}
 	};
 	
 	var sentimentTweetsManager = function(){
@@ -45,7 +49,6 @@ jt.sentiment = (function($){
 			var tweet = tweetsWithSentiment.pop();
 			processTweet(tweet);
 		}
-		
 		setTimeout(sentimentTweetsManager, 1000 * 2);
 	};
 	

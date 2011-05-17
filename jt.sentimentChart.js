@@ -31,7 +31,19 @@ jt.sentimentChart = (function($){
 	        series: [{
 	            name: 'Positive',
 	            data: []
-	        }]
+	        }],
+	
+		 	legend: {
+		         enabled: false
+		    },
+		
+			tooltip: {
+			     formatter: function() {
+					   console.log('this', this);
+					
+			           return '<b>'+ this.y +'</b> ' + '<span>' + this.point.name  + '</span>';
+			     }
+			}
 	    });
 	
 	};
@@ -40,10 +52,10 @@ jt.sentimentChart = (function($){
 
 		if(typeof tweet.sentiment.score !== "undefined"){
 			var series = chart.series[0],
-		        shift = series.data.length > 20,
 				point = tweet.sentiment.score * 1;
-				
-		    chart.series[0].addPoint(point);
+				epocTime = new Date().getTime();
+
+		    chart.series[0].addPoint({ y:point, x:epocTime, name:tweet.message  });
 		}
 	
 	}
