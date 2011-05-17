@@ -1,9 +1,7 @@
 body{
 	width: 90%;
-	margin: 0 auto;
+	margin: 10px auto;
 	border: 3px solid black;
-	margin-top: 10px;
-	margin-bottom: 10px;
 	-moz-border-radius: 12px;
   	-webkit-border-radius: 12px;
     border-radius: 12px;
@@ -26,8 +24,7 @@ h2{
 #countriesChart, #sentimentChart, #tweets{
 	width: 80%;
 	height: 400px;
-	margin-bottom: 45px;
-	margin: 0 auto;
+	margin: 35px auto;
 }
 
 #translatedTweets{
@@ -39,6 +36,19 @@ h2{
 	margin-bottom: 15px;
 	border: 1px solid silver;
 	padding: 8px;
+
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+	
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box; 
+	
+	width: 95%;
+	
 }
 
 .translatedTweet img{
@@ -49,7 +59,7 @@ h2{
 
 .translatedTweet div{
 	float: left;
-	width: 90%;
+	width: 85%;
 }
 
 .translatedTweet span{

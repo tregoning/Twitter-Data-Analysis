@@ -24,7 +24,9 @@ jt.translate = (function($){
 	};
 	
 	var displayTweet = function(tweet, translatedMessage){
-		translatedTweets.prepend('<div class="translatedTweet clearfix"><img src="' + tweet.user.image + '" width="48 height="48"/><div><span>' + tweet.message + '</span><span class="english">' + translatedMessage + '</span></div></div>');
+		if (translatedMessage !== tweet.message){
+			translatedTweets.prepend('<div class="translatedTweet clearfix"><img src="' + tweet.user.image + '" width="48 height="48"/><div><span>' + tweet.message + '</span><span class="english">' + translatedMessage + '</span></div></div>');
+		}
 	};
 	
 	$(init);
