@@ -7,6 +7,7 @@ jt.twitter = (function($){
 	
 	var init = function(){
 		fetchPublicTimeline();
+		tweetRequestManager();
 	};
 	
 	var fetchPublicTimeline = function(){
@@ -35,14 +36,24 @@ jt.twitter = (function($){
 						}
 					};
 					
-					processTweet(tweet);
+					tweets.push(tweet);
 				}	
 			});
 		//});
 	};
 	
+	var tweetRequestManager = function(){
+		if (tweets.length){
+			var tweet = tweets.pop();
+			processTweet(tweet);
+		}else{
+			fetchPublicTimeline();
+		}
+		setTimeout(tweetRequestManager, 1000 * 2);
+		
+	};
+	
 	var processTweet = function(tweet){
-		tweets.push(tweet);
 		processForCountryTweetCounter(tweet);
 	};
 	
@@ -54,7 +65,7 @@ jt.twitter = (function($){
 		
 		if (lengthOfTweetsByCountry){
 			for(var i=0; i<lengthOfTweetsByCountry; i++){
-				if (country === tweetsByCountry[i][0]){
+				if (country === tweetsByCountry[i].name){
 					countryIndex = i;
 					break;
 				}
@@ -62,9 +73,11 @@ jt.twitter = (function($){
 		}
 		
 		if(countryIndex !== false){
-			tweetsByCountry[countryIndex][1]++; 
+			jt.chart.setCountryTweetTotal(country, ++tweetsByCountry[countryIndex].data);
+			
 		}else{
-			tweetsByCountry.push([country,1]);
+			tweetsByCountry.push({name:country,data:1});
+			jt.chart.setCountryTweetTotal(country, 1);
 		}
 	};
 	
