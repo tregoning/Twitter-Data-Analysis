@@ -4,6 +4,8 @@ jt.twitter = (function($){
 	
 	tweets = [];
 	tweetsByCountry = [];
+	tweetsBySentiment = [];
+	//translate = http://www.google.com/uds/Gtranslate?key=notsupplied&q=hola%20a%20todos&context=22&langpair=|en&v=1.0&callback=dude;
 	
 	var init = function(){
 		fetchPublicTimeline();
@@ -12,10 +14,10 @@ jt.twitter = (function($){
 	
 	var fetchPublicTimeline = function(){
 		
-		//$.getJSON("http://api.twitter.com/1/statuses/public_timeline.json?callback=?",function(data){
+		$.getJSON("http://api.twitter.com/1/statuses/public_timeline.json?callback=?",function(data){
 			
 			$.each(data, function(){
-				
+
 				var location = extractLocation(this);
 				
 				if(location){
@@ -39,7 +41,7 @@ jt.twitter = (function($){
 					tweets.push(tweet);
 				}	
 			});
-		//});
+		});
 	};
 	
 	var tweetRequestManager = function(){
@@ -55,6 +57,7 @@ jt.twitter = (function($){
 	
 	var processTweet = function(tweet){
 		processForCountryTweetCounter(tweet);
+		jt.sentiment.performSentimentAnalysis(tweet);
 	};
 	
 	var processForCountryTweetCounter = function(tweet){
@@ -73,11 +76,11 @@ jt.twitter = (function($){
 		}
 		
 		if(countryIndex !== false){
-			jt.chart.setCountryTweetTotal(country, ++tweetsByCountry[countryIndex].data);
+			jt.countriesChart.setCountryTweetTotal(country, ++tweetsByCountry[countryIndex].data);
 			
 		}else{
 			tweetsByCountry.push({name:country,data:1});
-			jt.chart.setCountryTweetTotal(country, 1);
+			jt.countriesChart.setCountryTweetTotal(country, 1);
 		}
 	};
 	
