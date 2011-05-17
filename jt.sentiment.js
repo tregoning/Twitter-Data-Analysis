@@ -2,7 +2,7 @@ var jt = jt || {};
 
 jt.sentiment = (function($){
 	
-	var apiKey = "c9b5e3c736314696c97e9ff862689ecf52b0cbd3",
+	var apiKey = "62f52f171c0de8d4a155b7954f86da31198a5723",
 		tweetsWithSentiment = [],
 		processedTweetIDs = [];
 	

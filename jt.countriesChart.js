@@ -15,9 +15,11 @@ jt.countriesChart = (function($) {
 		        title: {
 		           text: 'Number of Tweets by Country'
 		        },
+		
+				animation: true,
 
 		        xAxis: {
-
+					
 		        },
 
 		        yAxis: {
@@ -29,9 +31,8 @@ jt.countriesChart = (function($) {
 		        series: []
 	
 	     });
-
 	};
-	
+		
 	var getSeriesIndexByCountry = function(country){
 		
 		var series = countriesChart.series,
